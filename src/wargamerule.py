@@ -52,14 +52,3 @@ class WarGameRule:
         return self.__ranks[card.rank]
 
 
-if __name__ == '__main__':
-
-    player1 = Player('erfan')
-    player2 = Player('arman')
-    rule1 = WarGameRule()
-    rule1.create_cards()
-    rule1.shuffle_cards()
-    rule1.divide_cards(player1, player2)
-    player1.player_deck.display()
-    print('________________')
-    player2.player_deck.display()

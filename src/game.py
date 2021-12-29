@@ -6,16 +6,13 @@ sys.stdout = open('output.txt', 'w')
 
 class Game:
     def __init__(self, player1_name, player2_name):
-        self.player1 = Player('erfan')
-        self.player2 = Player('arman')
+        self.player1 = Player(player1_name)
+        self.player2 = Player(player2_name)
         self.rule = WarGameRule()
         self.rule.create_cards()
         self.rule.shuffle_cards()
         self.rule.divide_cards(self.player1, self.player2)
         self.ground = []
-        # self.player1.player_deck.display()
-        # print('___________')
-        # self.player2.player_deck.display()
 
         while not self.rule.winner(self.player1, self.player2):
 
@@ -53,4 +50,4 @@ class Game:
         print(self.rule.winner(self.player1, self.player2))
 
 
-game1 = Game('Erfan', 'Arman')
+game1 = Game('Erfan', 'computer')
