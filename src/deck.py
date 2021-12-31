@@ -1,29 +1,24 @@
 
 
 class Deck:
-    def __init__(self, owner):
-        self.owner = owner
-        self.deck = []
+    def __init__(self):
+        self.data = []
 
     def pop_card(self):
         # pick the top
-        try:
-            return self.deck.pop(0)
-        except IndexError:
-            print(f'{self.owner}: Deck is empty')
-            return False
+        return self.data.pop(0)
 
     def add_card(self, card):
         # add to bottom
-        self.deck.extend(card)
+        self.data.extend(card)
 
     def is_empty(self):
-        if self.deck == []:
+        if self.data == []:
             return True
         return False
 
     def display(self):
-        for card in self.deck:
+        for card in self.data:
             # card (TOP)
             # card
             # card (BOTTOM)

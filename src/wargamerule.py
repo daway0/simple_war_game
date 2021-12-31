@@ -1,10 +1,11 @@
 from card import Card
-from player import Player
 import random
 
 
 class WarGameRule:
-    def __init__(self):
+    def __init__(self, player1, player2):
+        self.__player1 = player1
+        self.__player2 = player2
 
         self.__suits = ['diamonds',
                         'hearts',
@@ -25,25 +26,25 @@ class WarGameRule:
                         'queen': 12,
                         'king': 13}
 
-    def create_cards(self):
+    def __create_cards(self):
         # create 52 cards
         self.cards = []
         for suit in self.__suits:
             for rank in self.__ranks:
                 self.cards.append(Card(suit, rank))
 
-    def shuffle_cards(self):
+    def __shuffle_cards(self):
         random.shuffle(self.cards)
 
-    def divide_cards(self, player1, player2):
+    def __divide_cards(self):
         # cards/2
-        player1.give_card(self.cards[0:26])
-        player2.give_card(self.cards[26:52])
+        self.__player1.give_cards(self.cards[0:26])
+        self.__player2.give_cards(self.cards[26:52])
 
     def winner(self, player1, player2):
-        if player1.empty_deck():
+        if not player1.has_card():
             return player2
-        if player2.empty_deck():
+        if not player2.has_card():
             return player1
 
         return False
@@ -51,4 +52,7 @@ class WarGameRule:
     def value(self, card):
         return self.__ranks[card.rank]
 
-
+    def configuration(self):
+        self.__create_cards()
+        self.__shuffle_cards()
+        self.__divide_cards()

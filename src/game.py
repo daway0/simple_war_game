@@ -1,53 +1,60 @@
 from player import Player
 from wargamerule import WarGameRule
-import sys
-sys.stdout = open('output.txt', 'w')
 
 
 class Game:
     def __init__(self, player1_name, player2_name):
-        self.player1 = Player(player1_name)
-        self.player2 = Player(player2_name)
-        self.rule = WarGameRule()
-        self.rule.create_cards()
-        self.rule.shuffle_cards()
-        self.rule.divide_cards(self.player1, self.player2)
-        self.ground = []
+        self.__player1 = Player(player1_name)
+        self.__player2 = Player(player2_name)
+        self.__rule = WarGameRule(self.__player1, self.__player2)
+        self.__rule.configuration()
+        self.__ground = []
+        self.__round = 1
 
-        while not self.rule.winner(self.player1, self.player2):
+    def __empty_ground(self):
+        self.__ground = []
 
-            card1 = self.player1.pick_card()
-            card2 = self.player2.pick_card()
-            self.ground.append(card1)
-            self.ground.append(card2)
+    def start(self):
+        while not self.__rule.winner(self.__player1, self.__player2):
 
-            if self.rule.value(card1) > self.rule.value(card2):
+            card1 = self.__player1.pick_card()
+            card2 = self.__player2.pick_card()
+            self.__ground.append(card1)
+            self.__ground.append(card2)
 
-                self.player1.give_card(self.ground)
-                for card in self.ground:
+            if self.__rule.value(card1) > self.__rule.value(card2):
+
+                self.__player1.give_cards(self.__ground)
+                self.__round += 1
+
+                for card in self.__ground:
                     print(card)
-                print(f'to {self.player1}')
+                print(f'to {self.__player1}')
                 print('--------------')
-                self.ground = []
+                self.__empty_ground()
 
-            elif self.rule.value(card1) < self.rule.value(card2):
-                self.player2.give_card(self.ground)
-                for card in self.ground:
+            elif self.__rule.value(card1) < self.__rule.value(card2):
+                self.__player2.give_cards(self.__ground)
+                self.__round += 1
+                for card in self.__ground:
                     print(card)
-                print(f'to {self.player2}')
+                print(f'to {self.__player2}')
                 print('--------------')
-                self.ground = []
+                self.__empty_ground()
 
-            elif self.rule.value(card1) == self.rule.value(card2):
+            elif self.__rule.value(card1) == self.__rule.value(card2):
 
-                for count in range(self.rule.value(card1)):
-                    if self.player1.empty_deck() or self.player2.empty_deck():
-                        print(self.rule.winner(self.player1, self.player2))
-                        sys.exit()
+                for count in range(self.__rule.value(card1)):
+                    if self.__rule.winner(self.__player1, self.__player2):
+                        print(f'{self.__round} rounds')
+                        return self.__rule.winner(self.__player1, self.__player2)
                     else:
-                        self.ground.append(self.player1.pick_card())
-                        self.ground.append(self.player2.pick_card())
-        print(self.rule.winner(self.player1, self.player2))
+                        self.__ground.append(self.__player1.pick_card())
+                        self.__ground.append(self.__player2.pick_card())
+        print(f'{self.__round} rounds')
+        return self.__rule.winner(self.__player1, self.__player2)
 
 
-game1 = Game('Erfan', 'computer')
+game = Game('Erfan', 'computer')
+result = game.start()
+print(result)
