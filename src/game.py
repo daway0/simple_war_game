@@ -7,7 +7,7 @@ class Game:
         self.__player1 = Player(player1_name)
         self.__player2 = Player(player2_name)
         self.__rule = WarGameRule(self.__player1, self.__player2)
-        self.__rule.configuration()
+        self.__rule.configurate()
         self.__ground = []
         self.__round = 1
 
@@ -15,7 +15,7 @@ class Game:
         self.__ground = []
 
     def start(self):
-        while not self.__rule.winner(self.__player1, self.__player2):
+        while not self.__rule.winner():
 
             card1 = self.__player1.pick_card()
             card2 = self.__player2.pick_card()
@@ -45,14 +45,14 @@ class Game:
             elif self.__rule.value(card1) == self.__rule.value(card2):
 
                 for count in range(self.__rule.value(card1)):
-                    if self.__rule.winner(self.__player1, self.__player2):
+                    if self.__rule.winner():
                         print(f'{self.__round} rounds')
-                        return self.__rule.winner(self.__player1, self.__player2)
+                        return self.__rule.winner()
                     else:
                         self.__ground.append(self.__player1.pick_card())
                         self.__ground.append(self.__player2.pick_card())
         print(f'{self.__round} rounds')
-        return self.__rule.winner(self.__player1, self.__player2)
+        return self.__rule.winner()
 
 
 game = Game('Erfan', 'computer')

@@ -28,31 +28,31 @@ class WarGameRule:
 
     def __create_cards(self):
         # create 52 cards
-        self.cards = []
+        self.__cards = []
         for suit in self.__suits:
             for rank in self.__ranks:
-                self.cards.append(Card(suit, rank))
+                self.__cards.append(Card(suit, rank))
 
     def __shuffle_cards(self):
-        random.shuffle(self.cards)
+        random.shuffle(self.__cards)
 
     def __divide_cards(self):
         # cards/2
-        self.__player1.give_cards(self.cards[0:26])
-        self.__player2.give_cards(self.cards[26:52])
+        self.__player1.give_cards(self.__cards[0:26])
+        self.__player2.give_cards(self.__cards[26:52])
 
-    def winner(self, player1, player2):
-        if not player1.has_card():
-            return player2
-        if not player2.has_card():
-            return player1
+    def winner(self):
+        if not self.__player1.has_card():
+            return self.__player2
+        if not self.__player2.has_card():
+            return self.__player1
 
         return False
 
     def value(self, card):
         return self.__ranks[card.rank]
 
-    def configuration(self):
+    def configurate(self):
         self.__create_cards()
         self.__shuffle_cards()
         self.__divide_cards()

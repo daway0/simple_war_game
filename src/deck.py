@@ -2,23 +2,23 @@
 
 class Deck:
     def __init__(self):
-        self.data = []
+        self.__data = []
 
     def pop_card(self):
         # pick the top
-        return self.data.pop(0)
+        return self.__data.pop(0)
 
     def add_card(self, card):
         # add to bottom
-        self.data.extend(card)
+        self.__data.extend(card)
 
     def is_empty(self):
-        if self.data == []:
+        if self.__data == []:
             return True
         return False
 
     def display(self):
-        for card in self.data:
+        for card in self.__data:
             # card (TOP)
             # card
             # card (BOTTOM)
