@@ -1,8 +1,8 @@
 
 class Card:
     def __init__(self, suit, rank):
-        self.suit = str(suit)
-        self.rank = str(rank)
+        self.suit = suit
+        self.rank = rank
 
     def __str__(self):
-        return (self.rank + ' of ' + self.suit)
+        return (f'{self.rank} of {self.suit}')
