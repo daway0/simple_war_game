@@ -3,17 +3,17 @@ from deck import Deck
 
 class Player:
     def __init__(self, player_name):
-        self.name = player_name
-        self.deck = Deck()
+        self.__name = player_name
+        self.__deck = Deck()
 
     def __str__(self):
-        return self.name
+        return self.__name
 
     def give_cards(self, cards):
-        self.deck.add_card(cards)
+        self.__deck.add_card(cards)
 
     def pick_card(self):
-        return self.deck.pop_card()
+        return self.__deck.pop_card()
 
     def has_card(self):
-        return not self.deck.is_empty()
+        return not self.__deck.is_empty()
